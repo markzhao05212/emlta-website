@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · EMLTA</title>
+<link rel="icon" href="../assets/images/emlta-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&amp;family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Fustat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+  /* ---------- Header band ---------- */
+  .contact-header {
+    position: relative;
+    width: 100%;
+    padding: 96px 48px 88px;
+    background: linear-gradient(135deg, #f1f7ef 0%, #e7f2e3 52%, #dcecd6 100%);
+    overflow: hidden;
+  }
+  .contact-header-decor {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .contact-header-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .contact-label-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 26px;
+  }
+  .contact-label-row .tag {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #3a9e2e;
+  }
+  .contact-label-row .sub {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #5a6a5e;
+  }
+  .contact-header-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 48px;
+    align-items: end;
+  }
+  .contact-header-grid h1 {
+    margin: 0;
+    max-width: 760px;
+    font-family: 'Fustat', sans-serif;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 1.04;
+    letter-spacing: -3px;
+    color: #0d2e1a;
+    text-wrap: pretty;
+  }
+  .contact-header-grid p {
+    margin: 0 0 8px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #566;
+    text-wrap: pretty;
+  }
+
+  /* ---------- Contact details ---------- */
+  .contact-section {
+    width: 100%;
+    padding: 80px 48px 104px;
+    background: #ffffff;
+  }
+  .channel-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
+  }
+  .channel-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 34px 30px;
+    border: 1px solid #e9ece7;
+    border-radius: 20px;
+    background: #fcfcfc;
+  }
+  .channel-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: #eef5ec;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .channel-label {
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #3a9e2e;
+  }
+  .channel-value {
+    font-family: 'Fustat', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.6px;
+    color: #0d2e1a;
+  }
+  a.channel-value {
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  a.channel-value:hover { color: #3a9e2e; }
+  .channel-value--email { word-break: break-word; }
+  .channel-value--address { line-height: 1.3; }
+  .channel-phones {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ---------- Direct email CTA band ---------- */
+  .contact-cta {
+    max-width: 1180px;
+    margin: 40px auto 0;
+    border-radius: 24px;
+    background: #0a130c;
+    padding: 56px 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+  .contact-cta-copy { max-width: 620px; }
+  .contact-cta-copy h2 {
+    margin: 0 0 12px;
+    font-family: 'Fustat', sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: -1.4px;
+    color: #ffffff;
+    text-wrap: pretty;
+  }
+  .contact-cta-copy p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .contact-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 16px 30px;
+    border-radius: 999px;
+    background: #5cb84a;
+    color: #07100a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: background 0.3s ease;
+  }
+  .contact-cta-btn:hover { background: #ffffff; }
+
+  /* ---------- Mobile (not in the original design — pragmatic stacking) ---------- */
+  @media (max-width: 1000px) {
+    .contact-header { padding: 72px 24px 60px; }
+    .contact-header-grid { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    .contact-header-grid h1 { font-size: 44px; letter-spacing: -2px; }
+    .contact-section { padding: 60px 24px 80px; }
+    .contact-cta { padding: 44px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="../" class="nav-logo">
+    <img src="../assets/images/emlta-logo.jpg" alt="EMLTA">
+    <span class="nav-wordmark">EMLTA</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="../about/" class="nav-link">About Us</a>
+
+    <div class="nav-products">
+      <a href="../products/" class="nav-link">Products
+        <span class="nav-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </a>
+
+      <div class="nav-drawer">
+        <a href="../products/">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.5L4.7 20.4a1 1 0 0 0 .9 1.6h12.8a1 1 0 0 0 .9-1.6L14 9.5V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg>
+          PVC Additives
+        </a>
+        <a href="../products/">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+          Stabilizers
+        </a>
+        <a href="../products/">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z"></path></svg>
+          Processing Aid
+        </a>
+        <a href="../products/#machines">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 2.2a2 2 0 0 0-1.6 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.6 0l8.6-3.9a1 1 0 0 0 0-1.8Z"></path><path d="m22 17.6-9.2 4.2a2 2 0 0 1-1.6 0L2 17.6"></path><path d="m22 12.6-9.2 4.2a2 2 0 0 1-1.6 0L2 12.6"></path></svg>
+          Extrusion Machines
+        </a>
+      </div>
+    </div>
+
+    <a href="../services/" class="nav-link">Services</a>
+    <a href="./" class="nav-link active">Contact</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="contact-header">
+
+  <!-- decorative green geometry -->
+  <svg aria-hidden="true" class="contact-header-decor" viewBox="0 0 1440 520" preserveAspectRatio="xMidYMid slice" fill="none">
+    <defs>
+      <pattern id="contactDots" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.5" fill="#3a9e2e" opacity="0.14"></circle>
+      </pattern>
+    </defs>
+    <rect x="0" y="0" width="1440" height="520" fill="url(#contactDots)"></rect>
+    <g stroke="#3a9e2e" fill="none">
+      <circle cx="1320" cy="70" r="90" opacity="0.16"></circle>
+      <circle cx="1320" cy="70" r="180" opacity="0.11"></circle>
+      <circle cx="1320" cy="70" r="290" opacity="0.07"></circle>
+    </g>
+    <g stroke="#0d2e1a" opacity="0.06" stroke-width="1">
+      <line x1="0" y1="180" x2="640" y2="0"></line>
+      <line x1="0" y1="360" x2="900" y2="0"></line>
+    </g>
+    <path d="M150 430 L214 430 L182 374 Z" fill="#5cb84a" opacity="0.18"></path>
+    <g fill="#3a9e2e"><circle cx="96" cy="250" r="5" opacity="0.5"></circle><circle cx="1150" cy="420" r="5" opacity="0.5"></circle></g>
+  </svg>
+
+  <div class="contact-header-inner">
+    <div class="contact-label-row">
+      <span class="tag">[ CONTACT ]</span>
+      <span class="sub">Weihai Emlta Chemical</span>
+    </div>
+    <div class="contact-header-grid">
+      <h1>Let's talk formulation.</h1>
+      <p>Questions on grades, samples, lead times or machinery — reach the EMLTA team directly.</p>
+    </div>
+  </div>
+</header>
+
+<!-- CONTACT DETAILS -->
+<section class="contact-section">
+  <div class="channel-grid">
+
+    <!-- EMAIL -->
+    <div class="channel-card">
+      <span class="channel-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 5L2 7"></path></svg></span>
+      <span class="channel-label">Email</span>
+      <a href="mailto:emltachem@gmail.com" class="channel-value channel-value--email">emltachem@gmail.com</a>
+    </div>
+
+    <!-- PHONE -->
+    <div class="channel-card">
+      <span class="channel-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
+      <span class="channel-label">Phone</span>
+      <div class="channel-phones">
+        <a href="tel:+61449992625" class="channel-value">+61 449992625</a>
+        <a href="tel:+866315160185" class="channel-value">(86)-631-5160185</a>
+      </div>
+    </div>
+
+    <!-- FAX -->
+    <div class="channel-card">
+      <span class="channel-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></span>
+      <span class="channel-label">Fax</span>
+      <span class="channel-value">(86)-631-5160110</span>
+    </div>
+
+    <!-- OFFICE -->
+    <div class="channel-card">
+      <span class="channel-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+      <span class="channel-label">Office</span>
+      <span class="channel-value channel-value--address">Weihai, Shandong<br>China</span>
+    </div>
+
+  </div>
+
+  <!-- direct email CTA band -->
+  <div class="contact-cta">
+    <div class="contact-cta-copy">
+      <h2>Send us your requirement.</h2>
+      <p>Tell us the grades, volumes or machinery you need — we'll get back with samples, pricing and lead times.</p>
+    </div>
+    <a href="mailto:emltachem@gmail.com" class="contact-cta-btn">Email the team
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+    </a>
+  </div>
+
+</section>
+
+<footer id="site-footer" class="site-footer">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="../" class="nav-logo">
+          <img src="../assets/images/emlta-logo.jpg" alt="EMLTA">
+          <span class="nav-wordmark">EMLTA</span>
+        </a>
+        <p>Weihai Emlta Chemical — premium PVC additives and precision extrusion machinery, trusted worldwide.</p>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Products</span>
+        <a href="../products/">PVC Additives</a>
+        <a href="../products/">Stabilizers</a>
+        <a href="../products/">Processing Aid</a>
+        <a href="../products/">Impact Modifier</a>
+        <a href="../products/#machines">Extrusion Machines</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Company</span>
+        <a href="../">Home</a>
+        <a href="../about/">About Us</a>
+        <a href="../services/">Applications</a>
+        <a href="../services/">Technical Support</a>
+        <a href="./">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Get in touch</span>
+        <a href="mailto:emltachem@gmail.com">emltachem@gmail.com</a>
+        <a href="tel:+61449992625">Tel: +61 449992625</a>
+        <a href="tel:+866315160185">Tel: (86)-631-5160185</a>
+        <span class="plain">Fax: (86)-631-5160110</span>
+        <span class="plain">Weihai, Shandong<br>China</span>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Weihai Emlta Chemical. All rights reserved.</span>
+      <div class="footer-icons">
+        <a href="mailto:emltachem@gmail.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 5L2 7"></path></svg></a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../assets/js/nav.js"></script>
+</body>
+</html>

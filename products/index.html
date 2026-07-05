@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products · EMLTA</title>
+<link rel="icon" href="../assets/images/emlta-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&amp;family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Fustat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+  /* ---------- Page header ---------- */
+  .products-header { position: relative; width: 100%; padding: 96px 48px 64px; background: #ffffff; }
+  .page-label { display: flex; align-items: center; gap: 13px; margin-bottom: 26px; }
+  .page-label .tag { font-family: var(--font-mono); font-size: 13px; letter-spacing: 1px; color: #3a9e2e; }
+  .page-label .sub { font-family: var(--font-body); font-weight: 500; font-size: 14px; letter-spacing: 0.6px; text-transform: uppercase; color: #5a6a5e; }
+  .header-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: end; }
+  .products-title { margin: 0; max-width: 760px; font-family: var(--font-heading); font-weight: 700; font-size: 62px; line-height: 1.04; letter-spacing: -3px; color: #0d2e1a; text-wrap: pretty; }
+  .header-intro { margin: 0 0 8px; font-family: var(--font-body); font-weight: 400; font-size: 17px; line-height: 1.6; color: #566; text-wrap: pretty; }
+
+  /* ---------- Category filter bar ---------- */
+  .filter-wrap { width: 100%; padding: 0 48px 12px; background: #ffffff; }
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 30px; border-bottom: 1px solid #e9ece7; }
+  .filter-chip {
+    display: inline-flex; align-items: center; gap: 8px; padding: 9px 17px; border-radius: 999px;
+    background: #ffffff; color: #0d2e1a; border: 1px solid #d6dad3;
+    font-family: var(--font-body); font-weight: 500; font-size: 14px; cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .filter-chip .count { font-family: var(--font-mono); font-size: 11px; opacity: 0.6; }
+  .filter-chip.active { background: #0d2e1a; color: #ffffff; border: 1px solid #0d2e1a; }
+
+  /* ---------- Product grid ---------- */
+  .products-section { width: 100%; padding: 48px 48px 96px; background: #ffffff; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 28px; }
+
+  .product-card { display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: #ffffff; cursor: pointer; }
+  .card-head { position: relative; height: 160px; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 22px; overflow: hidden; }
+  .cat-processing .card-head { background: #f3f6f1; }
+  .cat-foaming .card-head { background: #e8f1e3; }
+  .cat-impact .card-head { background: #dbe7d6; }
+  .card-head-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; }
+  .cat-processing .card-cat, .cat-foaming .card-cat { color: #3a9e2e; }
+  .cat-impact .card-cat { color: #2f7d27; }
+  .card-spec { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3px; text-align: right; color: #5a6a5e; max-width: 150px; }
+  .card-code { font-family: var(--font-heading); font-weight: 700; font-size: 46px; line-height: 1; letter-spacing: -2px; color: #0d2e1a; }
+  .card-body { display: flex; flex-direction: column; gap: 11px; padding: 24px 24px 26px; }
+  .card-name { margin: 0; font-family: var(--font-heading); font-weight: 700; font-size: 21px; letter-spacing: -0.6px; color: #0d2e1a; }
+  .card-blurb { margin: 0; font-size: 14.5px; line-height: 1.6; color: #566; text-wrap: pretty; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .tag-pill { padding: 5px 11px; border-radius: 999px; background: #f1f4ef; font-size: 12px; font-weight: 500; color: #3a6b3a; }
+  .card-cta { display: inline-flex; align-items: center; gap: 7px; margin-top: 8px; font-weight: 600; font-size: 14px; color: #0d2e1a; }
+
+  /* ---------- Machinery ---------- */
+  .machines-section { width: 100%; padding: 96px 48px 64px; background: #0a130c; scroll-margin-top: 96px; }
+  .machines-section .page-label { margin-bottom: 22px; }
+  .machines-section .page-label .tag { color: #5cb84a; }
+  .machines-section .page-label .sub { color: rgba(255, 255, 255, 0.6); }
+  .machines-header-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: end; margin-bottom: 48px; }
+  .machines-title { margin: 0; max-width: 720px; font-family: var(--font-heading); font-weight: 700; font-size: 46px; line-height: 1.06; letter-spacing: -2px; color: #ffffff; text-wrap: pretty; }
+  .machines-intro { margin: 0 0 6px; font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.62); text-wrap: pretty; }
+  .machine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+  .machine-card { display: flex; flex-direction: column; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; overflow: hidden; background: #0d1a11; }
+  .machine-photo { position: relative; height: 200px; overflow: hidden; }
+  .machine-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .machine-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,19,12,0) 45%, rgba(10,19,12,0.55) 100%); }
+  .machine-num { position: absolute; right: 14px; top: 12px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1px; color: rgba(255, 255, 255, 0.85); }
+  .machine-body { display: flex; flex-direction: column; gap: 9px; padding: 22px 22px 26px; }
+  .machine-name { margin: 0; font-family: var(--font-heading); font-weight: 700; font-size: 20px; letter-spacing: -0.6px; color: #ffffff; }
+  .machine-desc { margin: 0; font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.6); }
+
+  /* ---------- CTA band ---------- */
+  .cta-section { width: 100%; padding: 72px 48px 110px; background: #ffffff; }
+  .cta-band { border-radius: 24px; background: #fcfcfc; border: 1px solid #e9ece7; padding: 64px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 32px; }
+  .cta-band-copy { max-width: 620px; }
+  .cta-band h2 { margin: 0 0 14px; font-family: var(--font-heading); font-weight: 700; font-size: 38px; letter-spacing: -1.6px; color: #0d2e1a; text-wrap: pretty; }
+  .cta-band p { margin: 0; font-size: 16px; line-height: 1.6; color: #566; }
+  .cta-pill {
+    display: inline-flex; align-items: center; gap: 9px; padding: 16px 30px; border-radius: 999px;
+    background: #0d2e1a; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 16px;
+    transition: background 0.3s ease;
+  }
+  .cta-pill:hover { background: #3a9e2e; }
+
+  /* ---------- Product detail modal ---------- */
+  @keyframes emltaModalIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes emltaFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 300; background: rgba(7,16,10,0.55);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 5vh 20px 8vh; overflow-y: auto;
+  }
+  .modal-overlay.open { display: flex; animation: emltaFadeIn 0.2s ease; }
+  .modal-panel {
+    position: relative; width: 100%; max-width: 780px; background: #ffffff; border-radius: 24px;
+    overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+    animation: emltaModalIn 0.32s var(--ease-out);
+  }
+  .modal-head { position: relative; padding: 34px 40px 30px; }
+  .modal-close {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    border: none; border-radius: 999px; background: rgba(255,255,255,0.75); cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .modal-close:hover { background: #ffffff; }
+  .modal-cat { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 10px; }
+  .modal-title-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .modal-code { font-family: var(--font-heading); font-weight: 700; font-size: 50px; line-height: 1; letter-spacing: -2px; color: #0d2e1a; }
+  .modal-name { font-family: var(--font-heading); font-weight: 600; font-size: 20px; letter-spacing: -0.4px; color: #0d2e1a; }
+  .modal-body { padding: 32px 40px 40px; }
+  .modal-desc { margin: 0 0 28px; font-size: 15.5px; line-height: 1.65; color: #3a4a40; text-wrap: pretty; }
+  .modal-sec { margin-bottom: 30px; }
+  .modal-sec--props { margin-bottom: 8px; }
+  .modal-sec-label { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #3a9e2e; margin-bottom: 14px; }
+  .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 24px; }
+  .benefit { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; line-height: 1.5; color: #3a4a40; }
+  .benefit svg { flex: 0 0 auto; margin-top: 2px; }
+  .props-table { border: 1px solid #e9ece7; border-radius: 14px; overflow: hidden; }
+  .prop-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 13px 18px; border-bottom: 1px solid #eef1ec; }
+  .prop-row .k { font-size: 14px; color: #5a6a5e; }
+  .prop-row .v { font-size: 14px; font-weight: 600; color: #0d2e1a; text-align: right; font-family: var(--font-mono); }
+  .figures-sec { margin-top: 30px; }
+  .figure-list { display: flex; flex-direction: column; gap: 16px; }
+  .figure-list figure { margin: 0; border: 1px solid #e9ece7; border-radius: 14px; overflow: hidden; background: #ffffff; }
+  .figure-list img { display: block; width: 100%; height: auto; background: #ffffff; }
+  .figure-list figcaption { padding: 11px 16px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.3px; color: #5a6a5e; border-top: 1px solid #eef1ec; }
+  .modal-cta {
+    display: inline-flex; align-items: center; gap: 9px; margin-top: 32px; padding: 14px 26px;
+    border-radius: 999px; background: #0d2e1a; color: #ffffff; text-decoration: none;
+    font-weight: 600; font-size: 15px; transition: background 0.3s ease;
+  }
+  .modal-cta:hover { background: #3a9e2e; }
+
+  /* ---------- Mobile (not in the original design — pragmatic stacking) ---------- */
+  @media (max-width: 1000px) {
+    .products-header { padding: 64px 20px 48px; }
+    .filter-wrap { padding: 0 20px 12px; }
+    .products-section { padding: 40px 20px 72px; }
+    .machines-section { padding: 72px 20px 56px; }
+    .cta-section { padding: 56px 20px 80px; }
+    .header-grid, .machines-header-grid { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    .products-title { font-size: 44px; letter-spacing: -2px; }
+    .machines-title { font-size: 36px; letter-spacing: -1.4px; }
+    .cta-band { padding: 44px 32px; }
+    .modal-head { padding: 28px 24px 26px; }
+    .modal-body { padding: 26px 24px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="../" class="nav-logo">
+    <img src="../assets/images/emlta-logo.jpg" alt="EMLTA">
+    <span class="nav-wordmark">EMLTA</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="../about/" class="nav-link">About Us</a>
+
+    <div class="nav-products">
+      <a href="./" class="nav-link active">Products
+        <span class="nav-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </a>
+
+      <div class="nav-drawer">
+        <a href="./">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.5L4.7 20.4a1 1 0 0 0 .9 1.6h12.8a1 1 0 0 0 .9-1.6L14 9.5V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg>
+          PVC Additives
+        </a>
+        <a href="./">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+          Stabilizers
+        </a>
+        <a href="./">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z"></path></svg>
+          Processing Aid
+        </a>
+        <a href="./#machines">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 2.2a2 2 0 0 0-1.6 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.6 0l8.6-3.9a1 1 0 0 0 0-1.8Z"></path><path d="m22 17.6-9.2 4.2a2 2 0 0 1-1.6 0L2 17.6"></path><path d="m22 12.6-9.2 4.2a2 2 0 0 1-1.6 0L2 12.6"></path></svg>
+          Extrusion Machines
+        </a>
+      </div>
+    </div>
+
+    <a href="../services/" class="nav-link">Services</a>
+    <a href="../contact/" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="products-header">
+  <div class="container">
+    <div class="page-label">
+      <span class="tag">[ PRODUCTS ]</span>
+      <span class="sub">The complete PVC additive range</span>
+    </div>
+    <div class="header-grid">
+      <h1 class="products-title">Eleven grades, engineered to perform together.</h1>
+      <p class="header-intro">Processing aids, foaming aids and impact modifiers — every grade backed by formulation support and consistent, certified quality. Click any grade for full data.</p>
+    </div>
+  </div>
+</header>
+
+<!-- CATEGORY FILTER BAR -->
+<div class="filter-wrap">
+  <div class="container filter-bar">
+    <button class="filter-chip active" data-filter="all">All products<span class="count">11</span></button>
+    <button class="filter-chip" data-filter="processing">Processing Aids<span class="count">5</span></button>
+    <button class="filter-chip" data-filter="foaming">Foaming Aids<span class="count">2</span></button>
+    <button class="filter-chip" data-filter="impact">Impact Modifiers<span class="count">4</span></button>
+  </div>
+</div>
+
+<!-- PRODUCT GRID -->
+<section class="products-section">
+  <div class="container product-grid">
+
+    <div class="product-card lift-card cat-processing" data-code="AS-869" data-cat="processing">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Processing Aid</span>
+          <span class="card-spec">IV 10.0–15.0 · 100 ml/g</span>
+        </div>
+        <span class="card-code">AS-869</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Ultra-High MW Processing Aid</h3>
+        <p class="card-blurb">Styrene-acrylonitrile copolymer, MW ~5,000,000. Smaller additions for the same processing function at lower cost; also lifts gloss in ABS.</p>
+        <div class="card-tags">
+          <span class="tag-pill">SAN copolymer</span>
+          <span class="tag-pill">PVC + ABS</span>
+        </div>
+        <span class="card-cta">View details
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-processing" data-code="K-121" data-cat="processing">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Processing Aid</span>
+          <span class="card-spec">IV 3.0–5.0 · 100 ml/g</span>
+        </div>
+        <span class="card-code">K-121</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">General-Purpose Processing Aid</h3>
+        <p class="card-blurb">Acrylic process aid for window profile, siding, fence, pipe, fittings and transparent sheet. Improves fusion and melt strength.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Acrylic</span>
+          <span class="tag-pill">Profiles &amp; pipe</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-processing" data-code="K-123" data-cat="processing">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Processing Aid</span>
+          <span class="card-spec">IV 3.0–5.0 · 100 ml/g</span>
+        </div>
+        <span class="card-code">K-123</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">General-Purpose Processing Aid</h3>
+        <p class="card-blurb">Versatile process aid for building products and foam applications. High dispersibility with efficient fusion promotion.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Acrylic</span>
+          <span class="tag-pill">Foam-ready</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-processing" data-code="K-125" data-cat="processing">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Processing Aid</span>
+          <span class="card-spec">IV 4.0–6.0 · 100 ml/g</span>
+        </div>
+        <span class="card-code">K-125</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">General-Purpose Processing Aid</h3>
+        <p class="card-blurb">For profiles and pipe plus foam molding, deep-draw containers and semi-rigid / soft PVC. Excellent melt-strength enhancement.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Acrylic</span>
+          <span class="tag-pill">Versatile</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-processing" data-code="K-175" data-cat="processing">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Processing Aid</span>
+          <span class="card-spec">IV 0.5–1.5 · 100 ml/g</span>
+        </div>
+        <span class="card-code">K-175</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Lubricating Processing Aid</h3>
+        <p class="card-blurb">Acrylic aid with external-lubricant performance — enhanced metal release, higher output and high clarity for clear PVC.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Acrylic</span>
+          <span class="tag-pill">Lubricating</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-foaming" data-code="K-385" data-cat="foaming">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Foaming Aid</span>
+          <span class="card-spec">IV 6.0–7.5 · 100 ml/g</span>
+        </div>
+        <span class="card-code">K-385</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Foaming Processing Aid</h3>
+        <p class="card-blurb">Multi-layer high-MW acrylate aid for low-foamed boards, profiles and ceilings. Low density, uniform cells, high surface gloss.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Foaming</span>
+          <span class="tag-pill">High MW</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-foaming" data-code="K-418" data-cat="foaming">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Foaming Aid</span>
+          <span class="card-spec">IV 10.0–12.0 · 100 ml/g</span>
+        </div>
+        <span class="card-code">K-418</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Foaming Processing Aid</h3>
+        <p class="card-blurb">Multi-layer (methyl)methacrylate aid for free, Celuka and co-extrusion foam. Outstanding melt strength and surface gloss.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Foaming</span>
+          <span class="tag-pill">Multi-layer</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-impact" data-code="KM-310" data-cat="impact">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Impact Modifier</span>
+          <span class="card-spec">Bulk density ≥0.40 g/cm³</span>
+        </div>
+        <span class="card-code">KM-310</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Acrylic Impact Modifier</h3>
+        <p class="card-blurb">Core/shell acrylic modifier for rigid PVC — windows, pipe, fittings and siding. Excellent weatherability and impact strength.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Core / shell</span>
+          <span class="tag-pill">Weatherable</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-impact" data-code="KM-355" data-cat="impact">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Impact Modifier</span>
+          <span class="card-spec">Charpy ≥18.0 KJ/m² (23°C)</span>
+        </div>
+        <span class="card-code">KM-355</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Acrylic Impact Modifier</h3>
+        <p class="card-blurb">Impact modifier for outdoor rigid PVC with strong fusion promotion, reducing processing-aid use and post-extrusion shrinkage.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Acrylic</span>
+          <span class="tag-pill">Outdoor</span>
+        </div>
+        <span class="card-cta">View data &amp; charts
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-impact" data-code="MBS JHB-23" data-cat="impact">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Impact Modifier</span>
+          <span class="card-spec">Equiv. Rohm &amp; Haas BTA-730</span>
+        </div>
+        <span class="card-code">MBS JHB-23</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">MBS Impact Modifier</h3>
+        <p class="card-blurb">MMA-butadiene-styrene terpolymer for transparent rigid PVC film and sheet — high impact resistance with high clarity.</p>
+        <div class="card-tags">
+          <span class="tag-pill">Transparent</span>
+          <span class="tag-pill">MBS</span>
+        </div>
+        <span class="card-cta">View details
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="product-card lift-card cat-impact" data-code="CPE-135A" data-cat="impact">
+      <div class="card-head">
+        <div class="card-head-top">
+          <span class="card-cat">Impact Modifier</span>
+          <span class="card-spec">Chlorine 35 ± 2%</span>
+        </div>
+        <span class="card-code">CPE-135A</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">Chlorinated Polyethylene</h3>
+        <p class="card-blurb">CPE impact modifier delivering toughness and weatherability for profiles, pipe and sheet across demanding outdoor service.</p>
+        <div class="card-tags">
+          <span class="tag-pill">CPE</span>
+          <span class="tag-pill">35% Cl</span>
+        </div>
+        <span class="card-cta">View details
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MACHINERY -->
+<section id="machines" class="machines-section">
+  <div class="container">
+    <div class="page-label">
+      <span class="tag">[ MACHINERY ]</span>
+      <span class="sub">PVC extrusion &amp; moulding equipment</span>
+    </div>
+    <div class="machines-header-grid">
+      <h2 class="machines-title">The lines that turn our chemistry into product.</h2>
+      <p class="machines-intro">Alongside additives, EMLTA supplies complete PVC extrusion and injection-moulding equipment — from single machines to full production halls.</p>
+    </div>
+
+    <div class="machine-grid">
+
+      <div class="machine-card">
+        <div class="machine-photo">
+          <img src="../assets/images/machines/pipe-extrusion.jpg" alt="PVC pipe extrusion line">
+          <div class="machine-scrim"></div>
+          <span class="machine-num">01</span>
+        </div>
+        <div class="machine-body">
+          <h3 class="machine-name">Pipe Extrusion Equipment</h3>
+          <p class="machine-desc">Conical twin-screw extruders with vacuum sizing and haul-off for rigid PVC water, drainage and conduit pipe.</p>
+        </div>
+      </div>
+
+      <div class="machine-card">
+        <div class="machine-photo">
+          <img src="../assets/images/machines/sheet-extrusion.jpg" alt="PVC sheet extrusion die">
+          <div class="machine-scrim"></div>
+          <span class="machine-num">02</span>
+        </div>
+        <div class="machine-body">
+          <h3 class="machine-name">Sheet Extrusion Equipment</h3>
+          <p class="machine-desc">Precision die tooling and extrusion lines for rigid and foamed PVC sheet, board and profile.</p>
+        </div>
+      </div>
+
+      <div class="machine-card">
+        <div class="machine-photo">
+          <img src="../assets/images/machines/extrusion.jpg" alt="PVC extrusion production hall">
+          <div class="machine-scrim"></div>
+          <span class="machine-num">03</span>
+        </div>
+        <div class="machine-body">
+          <h3 class="machine-name">Extrusion Equipment</h3>
+          <p class="machine-desc">Complete extrusion lines and full production halls configured for high-volume rigid PVC output.</p>
+        </div>
+      </div>
+
+      <div class="machine-card">
+        <div class="machine-photo">
+          <img src="../assets/images/machines/injection-molding.jpg" alt="PVC injection moulding equipment">
+          <div class="machine-scrim"></div>
+          <span class="machine-num">04</span>
+        </div>
+        <div class="machine-body">
+          <h3 class="machine-name">Injection Moulding Equipment</h3>
+          <p class="machine-desc">Injection-moulding machines with take-out automation for PVC fittings and moulded parts.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-section">
+  <div class="container cta-band">
+    <div class="cta-band-copy">
+      <h2>Not sure which grade fits your line?</h2>
+      <p>Send us your formulation or target spec — our technical team will recommend the right products and support trials.</p>
+    </div>
+    <a href="#site-footer" class="cta-pill">Talk to our team
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+    </a>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="../" class="nav-logo">
+          <img src="../assets/images/emlta-logo.jpg" alt="EMLTA">
+          <span class="nav-wordmark">EMLTA</span>
+        </a>
+        <p>Weihai Emlta Chemical — premium PVC additives and precision extrusion machinery, trusted worldwide.</p>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Products</span>
+        <a href="./">PVC Additives</a>
+        <a href="./">Stabilizers</a>
+        <a href="./">Processing Aid</a>
+        <a href="./">Impact Modifier</a>
+        <a href="./#machines">Extrusion Machines</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Company</span>
+        <a href="../">Home</a>
+        <a href="../about/">About Us</a>
+        <a href="../services/">Applications</a>
+        <a href="../services/">Technical Support</a>
+        <a href="../contact/">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Get in touch</span>
+        <a href="mailto:emltachem@gmail.com">emltachem@gmail.com</a>
+        <a href="tel:+61449992625">Tel: +61 449992625</a>
+        <a href="tel:+866315160185">Tel: (86)-631-5160185</a>
+        <span class="plain">Fax: (86)-631-5160110</span>
+        <span class="plain">Weihai, Shandong<br>China</span>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Weihai Emlta Chemical. All rights reserved.</span>
+      <div class="footer-icons">
+        <a href="mailto:emltachem@gmail.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 5L2 7"></path></svg></a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="product-modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-panel">
+    <div class="modal-head" id="modal-head">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0d2e1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+      </button>
+      <span class="modal-cat" id="modal-cat"></span>
+      <div class="modal-title-row">
+        <span class="modal-code" id="modal-code"></span>
+        <span class="modal-name" id="modal-name"></span>
+      </div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/products.js"></script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · EMLTA</title>
+<link rel="icon" href="../assets/images/emlta-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&amp;family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Fustat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+  /* ---------- Page-wide ---------- */
+
+  @keyframes emltaPulse { 0% { transform: scale(1); opacity: 0.55; } 70% { transform: scale(3.2); opacity: 0; } 100% { transform: scale(3.2); opacity: 0; } }
+
+  /* About uses a slightly lighter/wider label subtitle than the shared default */
+  .section-label .sub { font-weight: 500; font-size: 14px; letter-spacing: 0.6px; }
+
+  .body-p { margin: 0; font-size: 16px; line-height: 1.66; color: #566; text-wrap: pretty; }
+
+  /* ---------- Header ---------- */
+
+  .about-header { position: relative; width: 100%; padding: 96px 48px 64px; background: #ffffff; }
+  .about-header .section-label { margin-bottom: 26px; }
+  .about-header-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: end; }
+  .about-title { margin: 0; max-width: 780px; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 62px; line-height: 1.04; letter-spacing: -3px; color: #0d2e1a; text-wrap: pretty; }
+  .about-intro { margin: 0 0 8px; font-size: 17px; line-height: 1.6; color: #566; text-wrap: pretty; }
+
+  /* ---------- Story / CEO ---------- */
+
+  .story-section { width: 100%; padding: 40px 48px 96px; background: #ffffff; }
+  .story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 64px; align-items: start; }
+  .ceo-block { display: flex; flex-direction: column; gap: 22px; }
+  .ceo-eyebrow { font-weight: 600; font-size: 13px; letter-spacing: 3.5px; text-transform: uppercase; color: #3a9e2e; }
+  .ceo-row { display: flex; gap: 22px; align-items: flex-start; }
+  .ceo-photo { flex: none; width: 128px; height: 164px; object-fit: cover; object-position: center top; border-radius: 12px; box-shadow: 0 14px 34px rgba(13,46,26,0.20); }
+  .ceo-quote { margin: 0; padding-left: 18px; border-left: 3px solid #3a9e2e; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 24px; line-height: 1.26; letter-spacing: -1px; color: #0d2e1a; text-wrap: pretty; }
+  .ceo-sig { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+  .ceo-name { font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.5px; color: #0d2e1a; }
+  .ceo-role { font-size: 14px; color: #8a948b; }
+  .story-copy { display: flex; flex-direction: column; gap: 16px; max-width: 600px; }
+
+  /* ---------- Heritage / Jinhass ---------- */
+
+  .heritage { position: relative; width: 100%; padding: 104px 48px 108px; background: linear-gradient(140deg, #f1f7ef 0%, #e6f2e1 55%, #d9ecd2 100%); overflow: hidden; }
+  .heritage-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .heritage-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; }
+  .heritage .section-label { margin-bottom: 22px; }
+  .heritage-head { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end; margin-bottom: 64px; }
+  .heritage-title { margin: 0; max-width: 760px; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 48px; line-height: 1.06; letter-spacing: -2.2px; color: #0d2e1a; text-wrap: pretty; }
+  .heritage-lede { margin: 0 0 6px; font-size: 16px; line-height: 1.66; color: #566; text-wrap: pretty; }
+
+  .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 64px; }
+  .tl-card { display: flex; flex-direction: column; gap: 12px; padding: 28px 24px; background: #ffffff; border: 1px solid #e9ece7; border-radius: 20px; box-shadow: 0 14px 34px rgba(13,46,26,0.06); }
+  .tl-year { font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -1.5px; color: #3a9e2e; line-height: 1; }
+  .tl-card p { margin: 0; font-size: 14.5px; line-height: 1.6; color: #566; }
+  .tl-card--dark { background: #0d2e1a; border-color: #0d2e1a; box-shadow: 0 18px 40px rgba(13,46,26,0.22); }
+  .tl-card--dark .tl-year { color: #5cb84a; }
+  .tl-card--dark p { color: rgba(255,255,255,0.78); }
+
+  .heritage-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .heritage-copy { display: flex; flex-direction: column; gap: 16px; }
+  .heritage-right { display: flex; flex-direction: column; gap: 26px; }
+
+  .acr-card { display: flex; flex-direction: column; gap: 14px; padding: 28px; background: #ffffff; border: 1px solid #e9ece7; border-radius: 20px; box-shadow: 0 14px 34px rgba(13,46,26,0.06); }
+  .acr-label { font-weight: 600; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #3a9e2e; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 9px; }
+  .chip { font-family: ui-monospace, 'Cascadia Code', monospace; font-size: 13px; color: #0d2e1a; padding: 7px 14px; background: #f1f4ef; border-radius: 999px; }
+  .acr-capacity { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; padding-top: 16px; border-top: 1px solid #e9ece7; }
+  .cap-num { font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -1px; color: #0d2e1a; }
+  .cap-num--green { color: #3a9e2e; }
+  .cap-label { font-size: 14px; color: #8a948b; }
+
+  .mini-stats { display: flex; gap: 34px; flex-wrap: wrap; padding: 26px 28px; background: #0a130c; border-radius: 20px; }
+  .mini-stat { display: flex; flex-direction: column; gap: 4px; }
+  .mini-num { font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -1px; color: #ffffff; line-height: 1; }
+  .mini-num--green { color: #5cb84a; }
+  .mini-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+  /* ---------- Stats band ---------- */
+
+  .stats-band { width: 100%; padding: 74px 48px; background: #0a130c; }
+  .stats-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 48px; }
+  .stat { display: flex; flex-direction: column; gap: 10px; }
+  .stat-num { font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 58px; letter-spacing: -2.5px; color: #ffffff; line-height: 1; }
+  .stat-num--green { color: #5cb84a; }
+  .stat-label { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.6); }
+
+  /* ---------- Why EMLTA ---------- */
+
+  .why { width: 100%; padding: 100px 48px; background: #ffffff; }
+  .why .section-label { margin-bottom: 22px; }
+  .why-title { margin: 0 0 54px; max-width: 820px; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 46px; line-height: 1.08; letter-spacing: -2px; color: #0d2e1a; text-wrap: pretty; }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 34px; }
+  .why-item { display: flex; flex-direction: column; gap: 14px; padding-top: 26px; border-top: 2px solid #0d2e1a; }
+  .why-num { font-family: ui-monospace, 'Cascadia Code', monospace; font-size: 13px; color: #3a9e2e; }
+  .why-item h3 { margin: 0; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.7px; color: #0d2e1a; }
+  .why-item p { margin: 0; font-size: 15px; line-height: 1.62; color: #566; }
+
+  /* ---------- Global reach map ---------- */
+
+  .map-section { width: 100%; padding: 0 48px 110px; background: #ffffff; }
+  .map-shell { max-width: 1180px; margin: 0 auto; border-radius: 24px; background: #0a130c; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+  .map-head { padding: 54px 54px 30px; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .map-head .section-label { margin-bottom: 18px; }
+  .map-title { margin: 0; max-width: 640px; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 42px; line-height: 1.08; letter-spacing: -1.8px; color: #ffffff; text-wrap: pretty; }
+  .map-legend { display: flex; gap: 28px; }
+  .legend-item { display: flex; flex-direction: column; gap: 4px; }
+  .legend-num { display: inline-flex; align-items: center; gap: 8px; font-family: 'Fustat', sans-serif; font-weight: 700; font-size: 30px; color: #ffffff; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .legend-dot--red { background: #e8482e; }
+  .legend-dot--green { background: #5cb84a; }
+  .legend-label { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .map-panel { position: relative; width: 100%; padding: 10px 40px 54px; }
+  .map-frame { position: relative; width: 100%; aspect-ratio: 2 / 1; }
+  .map-frame svg, .map-pins { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* ---------- Mobile (not in the original design — pragmatic stacking) ---------- */
+
+  @media (max-width: 1000px) {
+    .about-header, .story-section, .heritage, .stats-band, .why, .map-section { padding-left: 24px; padding-right: 24px; }
+    .about-header { padding-top: 64px; }
+    .about-header-grid, .heritage-head, .heritage-cols { grid-template-columns: 1fr; }
+    .about-title { font-size: 44px; letter-spacing: -2px; }
+    .heritage-title { font-size: 38px; letter-spacing: -1.6px; }
+    .why-title { font-size: 36px; letter-spacing: -1.4px; }
+    .map-head { padding: 36px 28px 20px; }
+    .map-title { font-size: 32px; letter-spacing: -1.2px; }
+    .map-panel { padding: 10px 18px 36px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="../" class="nav-logo">
+    <img src="../assets/images/emlta-logo.jpg" alt="EMLTA">
+    <span class="nav-wordmark">EMLTA</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="./" class="nav-link active">About Us</a>
+
+    <div class="nav-products">
+      <a href="../products/" class="nav-link">Products
+        <span class="nav-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </a>
+
+      <div class="nav-drawer">
+        <a href="../products/">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.5L4.7 20.4a1 1 0 0 0 .9 1.6h12.8a1 1 0 0 0 .9-1.6L14 9.5V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg>
+          PVC Additives
+        </a>
+        <a href="../products/">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+          Stabilizers
+        </a>
+        <a href="../products/">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z"></path></svg>
+          Processing Aid
+        </a>
+        <a href="../products/#machines">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a9e2e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 2.2a2 2 0 0 0-1.6 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.6 0l8.6-3.9a1 1 0 0 0 0-1.8Z"></path><path d="m22 17.6-9.2 4.2a2 2 0 0 1-1.6 0L2 17.6"></path><path d="m22 12.6-9.2 4.2a2 2 0 0 1-1.6 0L2 12.6"></path></svg>
+          Extrusion Machines
+        </a>
+      </div>
+    </div>
+
+    <a href="../services/" class="nav-link">Services</a>
+    <a href="../contact/" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="about-header">
+  <div class="container">
+    <div class="section-label">
+      <span class="tag">[ ABOUT ]</span>
+      <span class="sub">Weihai Emlta Chemical</span>
+    </div>
+    <div class="about-header-grid">
+      <h1 class="about-title">Built on technical depth, not just supply.</h1>
+      <p class="about-intro">Since 2008, EMLTA has grown from a focused additives supplier into a full PVC partner — additives, machinery and the expertise to make them work together.</p>
+    </div>
+  </div>
+</header>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="container story-grid">
+
+    <div class="ceo-block">
+      <span class="ceo-eyebrow">From the CEO</span>
+      <div class="ceo-row">
+        <img src="../assets/images/CEO.jpg" alt="Leonard Zhao, Founder &amp; CEO" class="ceo-photo">
+        <blockquote class="ceo-quote">“We didn't set out to simply sell additives — we set out to make PVC processing cleaner, safer and more dependable.”</blockquote>
+      </div>
+      <div class="ceo-sig">
+        <span class="ceo-name">Leonard Zhao</span>
+        <span class="ceo-role">Founder &amp; CEO, EMLTA Chem Co., Ltd.</span>
+      </div>
+    </div>
+
+    <div class="story-copy">
+      <p class="body-p">Leonard Zhao has spent more than 20 years in the specialty chemicals industry. Before founding EMLTA, he held senior commercial roles at Rohm and Haas — one of the world's leading specialty chemicals companies — serving as Area Sales Manager and then Sales Manager for Northern China, building deep expertise in PVC additives and the processors who rely on them.</p>
+      <p class="body-p">He founded Weihai EMLTA Chemical Industry in 2008 and has grown it into a trusted supplier across plasticizers, impact modifiers, processing aids, stabilizers and resins. Drawing on years on the commercial and technical front line, he built EMLTA's reputation on technical depth and consistency — working alongside customers on formulation, scale-up and quality assurance rather than simply shipping product.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- HERITAGE / JINHASS -->
+<section class="heritage">
+
+  <!-- decorative green geometry -->
+  <svg aria-hidden="true" class="heritage-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+    <defs>
+      <pattern id="heritageDots" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.5" fill="#3a9e2e" opacity="0.14"></circle>
+      </pattern>
+    </defs>
+    <rect x="0" y="0" width="1440" height="900" fill="url(#heritageDots)"></rect>
+    <g stroke="#3a9e2e" fill="none">
+      <circle cx="1330" cy="70" r="90" opacity="0.16"></circle>
+      <circle cx="1330" cy="70" r="180" opacity="0.11"></circle>
+      <circle cx="1330" cy="70" r="290" opacity="0.07"></circle>
+    </g>
+    <g stroke="#0d2e1a" opacity="0.06" stroke-width="1">
+      <line x1="0" y1="240" x2="720" y2="0"></line>
+      <line x1="900" y1="900" x2="1440" y2="480"></line>
+    </g>
+    <path d="M120 760 L188 760 L154 702 Z" fill="#5cb84a" opacity="0.18"></path>
+    <g fill="#3a9e2e"><circle cx="90" cy="360" r="5" opacity="0.5"></circle><circle cx="1180" cy="820" r="5" opacity="0.5"></circle></g>
+  </svg>
+
+  <div class="heritage-inner">
+
+    <div class="section-label">
+      <span class="tag">[ HERITAGE ]</span>
+      <span class="sub">A Rohm &amp; Haas lineage</span>
+    </div>
+    <div class="heritage-head">
+      <h2 class="heritage-title">From a Rohm &amp; Haas joint venture to EMLTA.</h2>
+      <p class="heritage-lede">EMLTA's technical DNA runs through two decades of acrylic (ACR) PVC-additive expertise — from Jinhong Polymer, through the Rohm &amp; Haas joint venture, to Jinhass today.</p>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline">
+
+      <div class="tl-card">
+        <span class="tl-year">1999</span>
+        <p>Weihai Jinhong Polymer begins producing and selling acrylic (ACR) additives for PVC, earning a strong reputation in the market.</p>
+      </div>
+
+      <div class="tl-card">
+        <span class="tl-year">2007</span>
+        <p>Jinhong Polymer and Rohm &amp; Haas (USA) form a joint venture — Weihai Jinhong Rohm &amp; Haas Chemical — run as one of China's safest, most environment-friendly ACR plants.</p>
+      </div>
+
+      <div class="tl-card">
+        <span class="tl-year">2010</span>
+        <p>Renamed Weihai Jinhass Chemical after a shareholder change — carrying forward the venture's management system, technology and customer-first culture.</p>
+      </div>
+
+      <div class="tl-card tl-card--dark">
+        <span class="tl-year">Today</span>
+        <p>EMLTA Chemical is the sole overseas agent for Jinhong Rohm &amp; Haas — and a China market leader in chemical distribution.</p>
+      </div>
+
+    </div>
+
+    <!-- NARRATIVE + PRODUCTS -->
+    <div class="heritage-cols">
+
+      <div class="heritage-copy">
+        <p class="body-p">Managed by Rohm &amp; Haas, the venture built advanced manufacturing technology and excellent, consistent product quality — earning deep recognition from customers across PVC building and construction materials: window profile, siding, fence, pipe, fitting and foaming sheet.</p>
+        <p class="body-p">Jinhass carries that legacy forward, holding environment, health and safety at the core of how it operates — and continuing to invest in R&amp;D to develop creative, high-quality products for evolving market demands.</p>
+      </div>
+
+      <div class="heritage-right">
+
+        <div class="acr-card">
+          <span class="acr-label">Acrylic processing aids &amp; impact modifiers</span>
+          <div class="chip-row">
+            <span class="chip">K-121</span>
+            <span class="chip">K-123</span>
+            <span class="chip">K-125</span>
+            <span class="chip">K-385</span>
+            <span class="chip">K-418</span>
+            <span class="chip">AS869</span>
+            <span class="chip">KM310</span>
+            <span class="chip">KM355</span>
+          </div>
+          <div class="acr-capacity">
+            <span class="cap-num">7,000</span>
+            <span class="cap-label">MT capacity — scaling to</span>
+            <span class="cap-num cap-num--green">15,000</span>
+            <span class="cap-label">MT</span>
+          </div>
+        </div>
+
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <span class="mini-num mini-num--green">200+</span>
+            <span class="mini-label">Products distributed</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-num">1,000+</span>
+            <span class="mini-label">Customers served</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-num">Sole</span>
+            <span class="mini-label">Overseas agent, Jinhong R&amp;H</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats-band">
+  <div class="stats-grid">
+    <div class="stat">
+      <span class="stat-num">2008</span>
+      <span class="stat-label">Founded in Weihai, Shandong</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">30+</span>
+      <span class="stat-label">Countries with active customers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Additive families under one roof</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num stat-num--green">100%</span>
+      <span class="stat-label">Batches tested before shipment</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY EMLTA -->
+<section class="why">
+  <div class="container">
+    <div class="section-label">
+      <span class="tag">[ WHY EMLTA ]</span>
+      <span class="sub">What sets us apart</span>
+    </div>
+    <h2 class="why-title">The reasons processors stay with us.</h2>
+    <div class="why-grid">
+
+      <div class="why-item">
+        <span class="why-num">01</span>
+        <h3>Technical depth</h3>
+        <p>Two decades of front-line PVC experience behind every recommendation — we know the chemistry and the machine.</p>
+      </div>
+
+      <div class="why-item">
+        <span class="why-num">02</span>
+        <h3>Batch consistency</h3>
+        <p>Tight QA and full traceability mean the material you qualified is the material that arrives — every order.</p>
+      </div>
+
+      <div class="why-item">
+        <span class="why-num">03</span>
+        <h3>Everything under one roof</h3>
+        <p>Additives, stabilizers and extrusion machinery from a single partner — fewer vendors, aligned support.</p>
+      </div>
+
+      <div class="why-item">
+        <span class="why-num">04</span>
+        <h3>Dependable worldwide</h3>
+        <p>A proven export operation keeps customers across 30+ countries supplied and on schedule.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL REACH MAP -->
+<section class="map-section">
+  <div class="map-shell">
+    <div class="map-head">
+      <div>
+        <div class="section-label on-dark">
+          <span class="tag">[ GLOBAL REACH ]</span>
+        </div>
+        <h2 class="map-title">Customers on every inhabited continent.</h2>
+      </div>
+      <div class="map-legend">
+        <div class="legend-item">
+          <span class="legend-num"><span class="legend-dot legend-dot--red"></span>30+</span>
+          <span class="legend-label">Customer countries</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-num"><span class="legend-dot legend-dot--green"></span>1</span>
+          <span class="legend-label">HQ · Weihai, China</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- map panel -->
+    <div class="map-panel">
+      <div class="map-frame">
+        <svg id="about-map-svg" viewBox="0 0 360 180" preserveAspectRatio="xMidYMid meet"></svg>
+        <div id="about-map-pins" class="map-pins"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="../" class="nav-logo">
+          <img src="../assets/images/emlta-logo.jpg" alt="EMLTA">
+          <span class="nav-wordmark">EMLTA</span>
+        </a>
+        <p>Weihai Emlta Chemical — premium PVC additives and precision extrusion machinery, trusted worldwide.</p>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Products</span>
+        <a href="../products/">PVC Additives</a>
+        <a href="../products/">Stabilizers</a>
+        <a href="../products/">Processing Aid</a>
+        <a href="../products/">Impact Modifier</a>
+        <a href="../products/#machines">Extrusion Machines</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Company</span>
+        <a href="../">Home</a>
+        <a href="./">About Us</a>
+        <a href="../services/">Applications</a>
+        <a href="../services/">Technical Support</a>
+        <a href="../contact/">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="col-title">Get in touch</span>
+        <a href="mailto:emltachem@gmail.com">emltachem@gmail.com</a>
+        <a href="tel:+61449992625">Tel: +61 449992625</a>
+        <a href="tel:+866315160185">Tel: (86)-631-5160185</a>
+        <span class="plain">Fax: (86)-631-5160110</span>
+        <span class="plain">Weihai, Shandong<br>China</span>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Weihai Emlta Chemical. All rights reserved.</span>
+      <div class="footer-icons">
+        <a href="mailto:emltachem@gmail.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 5L2 7"></path></svg></a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/about-map.js"></script>
+</body>
+</html>
