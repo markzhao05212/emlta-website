@@ -55,6 +55,7 @@ h1, h2, h3 { text-wrap: pretty; }
   font-size: 13px;
   letter-spacing: 1px;
   color: var(--green-accent);
+  white-space: nowrap;
 }
 .section-label .sub {
   font-family: var(--font-body);
@@ -297,7 +298,26 @@ h1, h2, h3 { text-wrap: pretty; }
 }
 
 @media (max-width: 640px) {
-  .nav-links { gap: 12px; }
+  .site-nav, .site-nav--overlay { padding: 12px 14px; }
+  .nav-links { gap: 10px; }
+  .nav-link { font-size: 13px; letter-spacing: 0; gap: 3px; }
+  .nav-logo img { height: 36px; }
   .nav-wordmark { display: none; }
-  .footer-grid { grid-template-columns: 1fr; }
+  .nav-drawer { min-width: 240px; }
+
+  /* section label rows: keep the [ TAG ] on one line, let the row wrap */
+  .section-label { flex-wrap: wrap; row-gap: 6px; }
+
+  .btn { padding: 13px 24px; font-size: 15px; }
+
+  .site-footer { padding: 56px 24px 30px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 34px; padding-bottom: 44px; }
+  .footer-bottom { padding-top: 22px; }
+}
+
+@media (max-width: 360px) {
+  .site-nav, .site-nav--overlay { padding: 12px 10px; }
+  .nav-links { gap: 8px; }
+  .nav-link { font-size: 12px; white-space: nowrap; }
+  .nav-logo img { height: 32px; }
 }
